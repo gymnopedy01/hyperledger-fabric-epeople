@@ -48,7 +48,7 @@ createOrg2
 subinfoln "Create 협동1 crypto material"
 createUni1
 
-subinfoln "Create 협동1 crypto material"
+subinfoln "Create 협동2 crypto material"
 createUni2
 
 subinfoln "Create Orderer crypto material"
@@ -57,7 +57,7 @@ createOrderer
 # Generate orderer system channel genesis block.
 infoln "------------- Generating Orderer Genesis block"
 set -x
-configtxgen -profile TwoOrgsOrdererGenesis -channelID system-channel -outputBlock ./system-genesis-block/genesis.block
+configtxgen -profile TwoOrgsTwoUnisOrdererGenesis -channelID system-channel -outputBlock ./system-genesis-block/genesis.block
 { set +x; } 2>/dev/null
 
 # Bring up the peer and orderer nodes using docker compose.

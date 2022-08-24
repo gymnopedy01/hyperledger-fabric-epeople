@@ -64,7 +64,7 @@ services:
       - "13054:13054"
     command: sh -c 'fabric-ca-server start -b admin:adminpw -d'
     volumes:
-      - ../organizations/fabric-ca/uni1:/etc/hyperledger/fabric-ca-server
+      - ../organizations/fabric-ca/uni2:/etc/hyperledger/fabric-ca-server
     container_name: ca_uni2
     networks:
       - test
