@@ -96,7 +96,7 @@
                         "anchor_peers": [
                           {
                             "host": "peer0.uni2.example.com",
-                            "port": 9051
+                            "port": 13051
                           }
                         ]
                       },
