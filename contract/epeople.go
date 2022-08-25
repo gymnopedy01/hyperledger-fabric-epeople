@@ -30,15 +30,16 @@ type ComplaintRequest struct {
 	RequestDate       string `json:"request_date"`       //신청일
 	ReceptionStatus   int    `json:"reception_status"`   //접수상태
 	ReceptionDate     string `json:"reception_date"`     //접수일
-	Result	  ComplaintResult `json:complate_result`	//민원결과
+	Result	  ComplaintResult `json:complaint_result`	//민원결과
 }
 
 
 /* 민원결과*/
 type ComplaintResult struct {
-	ResultId     string `json:"people_name"`     //결과번호
+	RequestId	 string `json:request_id`		//신청번호
+	ResultId     string `json:"result_id"`     //결과번호
 	UserId        string `json:"user_id"`        //UserId
-	Agency        int    `json:"agency"`         //처리기관
+	Agency        string `json:"agency"`         //처리기관
 	Manager       string `json:"manager"`        //담당자
 	ResultDate    string `json:"result_date"`    //답변일
 	ResultContent string `json:"result_content"` //처리결과(답변내용)
@@ -56,7 +57,7 @@ func (s *SmartContract) AddUser (ctx contractapi.TransactionContextInterface, us
 }
 
 // CreateComplaintRequest adds a new CreateComplaintRequest to the world state with given details
-func (s *SmartContract) CreateComplaintRequest (ctx contractapi.TransactionContextInterface, requestId string, userId string, requesterName string, phoneNumber string, address string, open bool, title string, content string, complaintLocation string, requestDate string) (string, error) {
+func (s *SmartContract) AddComplaintRequest (ctx contractapi.TransactionContextInterface, requestId string, userId string, requesterName string, phoneNumber string, address string, open bool, title string, content string, complaintLocation string, requestDate string) (string, error) {
 	complaintRequest := ComplaintRequest{
 		RequestId:         requestId,
 		UserId:            userId,
@@ -89,7 +90,7 @@ func (s *SmartContract) GetComplaintRequest (ctx contractapi.TransactionContextI
 	}
 
 	complaintRequest := new(ComplaintRequest)
-	_ = json.Unmarshal(complaintRequestAsBytes, complaintRequest)
+	_ = json.Unmarshal(complaintRequestAsBytes, &complaintRequest)
 
 	return complaintRequest, nil
 }
@@ -117,12 +118,33 @@ func (s *SmartContract) UpdateComplaintRequest (ctx contractapi.TransactionConte
 
 //민원 접수 상태 수정 who.관아
 func (s *SmartContract) UpdateComplaintRequestStatus (ctx contractapi.TransactionContextInterface, requestId string, receptionStatus int, receptionDate string) (string, error) {
-	return requestId, nil
+	complaintRequest, err := s.GetComplaintRequest(ctx, requestId);
+
+	if err != nil {
+		return requestId, err
+	}
+
+	complaintRequest.ReceptionStatus = receptionStatus
+	complaintRequest.ReceptionDate = receptionDate
+
+	complaintRequestAsBytes, _ := json.Marshal(complaintRequest)
+	
+	return requestId, ctx.GetStub().PutState(requestId, complaintRequestAsBytes)
 }
 
 //민원 요청 삭제 who.백성
 func (s *SmartContract) DeleteComplaintRequest (ctx contractapi.TransactionContextInterface, requestId string) (string, error) {
-	return requestId, nil
+
+	complaintRequest, err := s.GetComplaintRequest(ctx, requestId)
+	if err != nil {
+		return requestId, err
+	}
+	if complaintRequest != nil {
+		return requestId, fmt.Errorf("the asset %s does not exist", requestId)
+	}
+
+	return requestId, ctx.GetStub().DelState(requestId)
+
 }
 
 //나의 민원 리스트
@@ -136,13 +158,50 @@ func (s *SmartContract) SearchComplaintRequestByTitle (ctx contractapi.Transacti
 }
 
 //전체 민원 리스트 who.관원
-func (s *SmartContract) ListComplaintRequestAll (ctx contractapi.TransactionContextInterface) ([]ComplaintRequest, error) {
-	return []ComplaintRequest{}, nil
+func (s *SmartContract) ListComplaintRequestAll (ctx contractapi.TransactionContextInterface) ([]*ComplaintRequest, error) {
+	// range query with empty string for startKey and endKey does an
+	// open-ended query of all assets in the chaincode namespace.
+	resultsIterator, err := ctx.GetStub().GetStateByRange("", "")
+	if err != nil {
+		return nil, err
+	}
+	defer resultsIterator.Close()
+
+	var complaintRequests []*ComplaintRequest
+	for resultsIterator.HasNext() {
+		queryResponse, err := resultsIterator.Next()
+		if err != nil {
+			return nil, err
+		}
+
+		var complaintRequest ComplaintRequest
+		err = json.Unmarshal(queryResponse.Value, &complaintRequest)
+		if err != nil {
+			return nil, err
+		}
+		complaintRequests = append(complaintRequests, &complaintRequest)
+	}
+
+	return complaintRequests, nil
+
 }
 
 //민원 결과 발행 who.관원
-func (s *SmartContract) AddComplaintResult (ctx contractapi.TransactionContextInterface, resultId string, agency string, userId string, manager string, resultDate string, resultContent string) (string, error) {
-	return resultId, nil
+func (s *SmartContract) AddComplaintResult (ctx contractapi.TransactionContextInterface, requestId string, resultId string, agency string, userId string, manager string, resultDate string, resultContent string) (string, error) {
+//	return resultId, nil
+	complaintResult := ComplaintResult{
+		RequestId:		requestId,
+		ResultId:         	resultId,
+		Agency:     		agency,
+		UserId:           userId,
+		Manager:       manager,
+		ResultDate:           resultDate,
+		ResultContent:              resultContent,
+	}
+
+	complaintResultAsBytes, _ := json.Marshal(complaintResult)
+
+	return resultId, ctx.GetStub().PutState(resultId, complaintResultAsBytes)
 }
 
 //민원 결과 수정 who.관원
@@ -151,8 +210,8 @@ func (s *SmartContract) UpdateComplaintResult (ctx contractapi.TransactionContex
 }
 
 //민원 결과 번호
-func (s *SmartContract) GetComplaintResult (ctx contractapi.TransactionContextInterface, resultId string) (ComplaintResult, error) {
-	return ComplaintResult{}, nil
+func (s *SmartContract) GetComplaintResult (ctx contractapi.TransactionContextInterface, resultId string) (*ComplaintResult, error) {
+	return &ComplaintResult{}, nil
 }
 
 func main() {

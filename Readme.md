@@ -57,6 +57,8 @@ shim API
 
 https://pkg.go.dev/github.com/hyperledger/fabric-chaincode-go@v0.0.0-20220720122508-9207360bbddd/shim#ChaincodeStub.GetQueryResult
 
+rich query examples
+https://github.com/hyperledger/fabric-samples/blob/main/asset-transfer-ledger-queries/chaincode-go/asset_transfer_ledger_chaincode.go
 
 ```go
 type ComplaintRequest struct {

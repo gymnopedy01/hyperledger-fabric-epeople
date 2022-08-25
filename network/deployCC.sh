@@ -20,8 +20,8 @@ export FABRIC_CFG_PATH=${PWD}/config
 # Chaincode config variable
 
 # CHANNEL_NAME="mychannel"
-CC_NAME="basic"
-CC_SRC_PATH="./chaincode/asset-transfer-basic"
+CC_NAME="epeople"
+CC_SRC_PATH="../contract"
 CC_RUNTIME_LANGUAGE="golang"
 CC_VERSION="1"
 CHANNEL_NAME="mychannel"
@@ -188,15 +188,30 @@ peer lifecycle chaincode querycommitted --channelID $CHANNEL_NAME --name ${CC_NA
 ## TEST1 : Invoking the chaincode
 infoln "TEST1 : Invoking the chaincode"
 set -x
-peer chaincode invoke -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile $ORDERER_CA -C $CHANNEL_NAME -n ${CC_NAME} $PEER_CONN_PARMS -c '{"function":"InitLedger","Args":[]}' >&log.txt
+peer chaincode invoke -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile $ORDERER_CA -C $CHANNEL_NAME -n ${CC_NAME} $PEER_CONN_PARMS -c '{"function":"AddComplaintRequest","Args":["REQ:1", "ohth", "taehyun", "01012345678","Gyunggido", true, "title", "content", "location", "20220825"]}' >&log.txt
 { set +x; } 2>/dev/null
 cat log.txt
 sleep 3
 
-## TEST2 : Query the chaincode
-
-infoln "TEST2 : Query the chaincode"
+## TEST2 : Invoking the chaincode
+infoln "TEST2 : Invoking the chaincode"
 set -x
-peer chaincode query -C $CHANNEL_NAME -n ${CC_NAME} -c '{"Args":["GetAllAssets"]}' >&log.txt
+peer chaincode invoke -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile $ORDERER_CA -C $CHANNEL_NAME -n ${CC_NAME} $PEER_CONN_PARMS -c '{"function":"UpdateComplaintRequestStatus","Args":["REQ:1", 1, "20220825"]}' >&log.txt
 { set +x; } 2>/dev/null
 cat log.txt
+
+## TEST3 : Invoking the chaincode
+infoln "TEST3 : Invoking the chaincode"
+set -x
+peer chaincode invoke -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile $ORDERER_CA -C $CHANNEL_NAME -n ${CC_NAME} $PEER_CONN_PARMS -c '{"function":"AddComplaintResult","Args":["REQ:1", "RES:1", "education center", "twice", "zzwii", "20220901", "resultcontent"]}' >&log.txt
+{ set +x; } 2>/dev/null
+cat log.txt
+
+
+## TEST4 : query the chaincode
+infoln "TEST4 : query the chaincode"
+set -x
+peer chaincode query -C $CHANNEL_NAME -n ${CC_NAME} -c '{"Args":["ListComplaintRequestAll"]}' >&log.txt
+{ set +x; } 2>/dev/null
+cat log.txt
+
