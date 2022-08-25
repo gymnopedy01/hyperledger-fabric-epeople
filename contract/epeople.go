@@ -16,8 +16,6 @@ type SmartContract struct {
 	contractapi.Contract
 }
 
-
-
 /* 민원요청*/
 type ComplaintRequest struct {
 	RequestId         string `json:"request_id"`         //신청번호
@@ -79,8 +77,21 @@ func (s *SmartContract) CreateComplaintRequest (ctx contractapi.TransactionConte
 }
 
 //민원 조회 who.백성
-func (s *SmartContract) GetComplaintRequest (ctx contractapi.TransactionContextInterface, requestId string) (ComplaintRequest, error) {
-	return ComplaintRequest{}, nil
+func (s *SmartContract) GetComplaintRequest (ctx contractapi.TransactionContextInterface, requestId string) (*ComplaintRequest, error) {
+	complaintRequestAsBytes, err := ctx.GetStub().GetState(requestId)
+
+	if err != nil {
+		return nil, fmt.Errorf("Failed to read from world state. %s", err.Error())
+	}
+
+	if complaintRequestAsBytes == nil {
+		return nil, fmt.Errorf("%s does not exist", requestId)
+	}
+
+	complaintRequest := new(ComplaintRequest)
+	_ = json.Unmarshal(complaintRequestAsBytes, complaintRequest)
+
+	return complaintRequest, nil
 }
 
 //민원 수정 who.백성
