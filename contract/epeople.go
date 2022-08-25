@@ -104,13 +104,28 @@ func (s *SmartContract) ListComplaintRequestByUserId (ctx contractapi.Transactio
 }
 
 //유사민원검색 who.백성
-func (s *SmartContract) searchComplaintRequestByTitle (ctx contractapi.TransactionContextInterface, title string) ([]ComplaintRequest, error) {
+func (s *SmartContract) SearchComplaintRequestByTitle (ctx contractapi.TransactionContextInterface, title string) ([]ComplaintRequest, error) {
 	return []ComplaintRequest{}, nil
 }
 
 //전체 민원 리스트 who.관원
-func (s *SmartContract) searchComplaintRequestByTitle (ctx contractapi.TransactionContextInterface) ([]ComplaintRequest, error) {
+func (s *SmartContract) ListComplaintRequestAll (ctx contractapi.TransactionContextInterface) ([]ComplaintRequest, error) {
 	return []ComplaintRequest{}, nil
+}
+
+//민원 결과 발행 who.관원
+func (s *SmartContract) AddComplaintResult (ctx contractapi.TransactionContextInterface, resultId string, agency string, userId string, manager string, resultDate string, resultContent string) (string, error) {
+	return resultId, nil
+}
+
+//민원 결과 수정 who.관원
+func (s *SmartContract) UpdateComplaintResult (ctx contractapi.TransactionContextInterface, resultId string, agency string, userId string, manager string, resultDate string, resultContent string) (string, error) {
+	return resultId, nil
+}
+
+//민원 결과 번호
+func (s *SmartContract) GetComplaintResult (ctx contractapi.TransactionContextInterface, resultId string) (ComplaintResult, error) {
+	return ComplaintResult{}, nil
 }
 
 func main() {
