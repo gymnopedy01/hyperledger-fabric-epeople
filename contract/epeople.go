@@ -11,7 +11,7 @@ import (
 	"github.com/hyperledger/fabric-contract-api-go/contractapi"
 )
 
-// SmartContract provides functions for managing a car
+// SmartContract provides functions for managing a ComplaintRequest, ComplaintResult
 type SmartContract struct {
 	contractapi.Contract
 }
@@ -96,7 +96,23 @@ func (s *SmartContract) GetComplaintRequest (ctx contractapi.TransactionContextI
 
 //민원 수정 who.백성
 func (s *SmartContract) UpdateComplaintRequest (ctx contractapi.TransactionContextInterface, requestId string, userId string, phoneNumber string, address string, open bool, title string, content string, complaintLocation string) (string, error) {
-	return requestId, nil
+
+	complaintRequest, err := s.GetComplaintRequest(ctx, requestId);
+
+	if err != nil {
+		return requestId, err
+	}
+
+	complaintRequest.PhoneNumber = phoneNumber
+	complaintRequest.Address = address
+	complaintRequest.Open = open
+	complaintRequest.Title = title
+	complaintRequest.Content = content
+	complaintRequest.ComplaintLocation = complaintLocation
+
+	complaintRequestAsBytes, _ := json.Marshal(complaintRequest)
+	
+	return requestId, ctx.GetStub().PutState(requestId, complaintRequestAsBytes)
 }
 
 //민원 접수 상태 수정 who.관아
