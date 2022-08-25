@@ -53,7 +53,7 @@ https://pkg.go.dev/github.com/hyperledger/fabric-chaincode-go@v0.0.0-20220720122
 
 
 
-
+```go
 type ComplaintRequest struct {
 	RequestID         string `json:"request_id"`         //신청번호
 	RequesterName     string `json:"requester_name"`     //신청인이름
@@ -88,3 +88,4 @@ Manager       string //담당자
 ResultDate    string //답변일
 ResultContent string //처리결과(답변내용)
 }
+```
