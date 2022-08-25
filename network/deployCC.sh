@@ -188,7 +188,7 @@ peer lifecycle chaincode querycommitted --channelID $CHANNEL_NAME --name ${CC_NA
 ## TEST1 : Invoking the chaincode
 infoln "TEST1 : Invoking the chaincode"
 set -x
-peer chaincode invoke -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile $ORDERER_CA -C $CHANNEL_NAME -n ${CC_NAME} $PEER_CONN_PARMS -c '{"function":"AddComplaintRequest","Args":["REQ:1", "ohth", "taehyun", "01012345678","Gyunggido", true, "title", "content", "location", "20220825"]}' >&log.txt
+peer chaincode invoke -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile $ORDERER_CA -C $CHANNEL_NAME -n ${CC_NAME} $PEER_CONN_PARMS -c '{"function":"AddComplaintRequest","Args":["REQ:1", "ohth", "taehyun", "01012345678","Gyunggido", 1, "title", "content", "location", "20220825"]}' >&log.txt
 { set +x; } 2>/dev/null
 cat log.txt
 sleep 3
@@ -203,7 +203,7 @@ cat log.txt
 ## TEST3 : Invoking the chaincode
 infoln "TEST3 : Invoking the chaincode"
 set -x
-peer chaincode invoke -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile $ORDERER_CA -C $CHANNEL_NAME -n ${CC_NAME} $PEER_CONN_PARMS -c '{"function":"AddComplaintResult","Args":["REQ:1", "RES:1", "education center", "twice", "zzwii", "20220901", "resultcontent"]}' >&log.txt
+peer chaincode invoke -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile $ORDERER_CA -C $CHANNEL_NAME -n ${CC_NAME} $PEER_CONN_PARMS -c '{"function":"AddComplaintResult","Args":["REQ:1", "RES:1", "JYP", "twice", "zzwii", "20220901", "resultcontent"]}' >&log.txt
 { set +x; } 2>/dev/null
 cat log.txt
 
