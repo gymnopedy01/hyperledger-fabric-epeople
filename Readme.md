@@ -96,3 +96,12 @@ type ComplaintResult struct {
 	ResultContent string //처리결과(답변내용)
 }
 ```
+
+
+서버구동
+```sh
+$> ./application/startEPP.sh
+$> ./ccp-generate.sh
+$> node enrollAdmin.js
+$> node registerUser.js
+```

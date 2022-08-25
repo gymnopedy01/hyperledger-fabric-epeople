@@ -23,7 +23,7 @@ type ComplaintRequest struct {
 	RequesterName     string `json:"requester_name"`     //신청인이름
 	PhoneNumber       string `json:"phone_number"`       //연락처
 	Address           string `json:"address"`            //주소
-	Open              bool `json:"open"`               //민원 공개 여부
+	Open              string `json:"open"`               //민원 공개 여부
 	Title             string `json:"title"`              //민원 제목
 	Content           string `json:"content"`            //민원 내용
 	ComplaintLocation string `json:"complaint_location"` //민원 발생지역
@@ -96,7 +96,7 @@ func (s *SmartContract) GetComplaintRequest (ctx contractapi.TransactionContextI
 }
 
 //민원 수정 who.백성
-func (s *SmartContract) UpdateComplaintRequest (ctx contractapi.TransactionContextInterface, requestId string, userId string, phoneNumber string, address string, open bool, title string, content string, complaintLocation string) (string, error) {
+func (s *SmartContract) UpdateComplaintRequest (ctx contractapi.TransactionContextInterface, requestId string, userId string, phoneNumber string, address string, open string, title string, content string, complaintLocation string) (string, error) {
 
 	complaintRequest, err := s.GetComplaintRequest(ctx, requestId);
 

@@ -1,0 +1,45 @@
+{
+    "name": "test-network-${HOST}",
+    "version": "1.0.0",
+    "client": {
+        "organization": "${ORG}",
+        "connection": {
+            "timeout": {
+                "peer": {
+                    "endorser": "300"
+                }
+            }
+        }
+    },
+    "organizations": {
+        "${ORG}": {
+            "mspid": "${ORG}MSP",
+            "peers": ["peer0.${HOST}.example.com"],
+            "certificateAuthorities": ["ca.${HOST}.example.com"]
+        }
+    },
+    "peers": {
+        "peer0.${HOST}.example.com": {
+            "url": "grpcs://localhost:${P0PORT}",
+            "tlsCACerts": {
+                "pem": "${PEERPEM}"
+            },
+            "grpcOptions": {
+                "ssl-target-name-override": "peer0.${HOST}.example.com",
+                "hostnameOverride": "peer0.${HOST}.example.com"
+            }
+        }
+    },
+    "certificateAuthorities": {
+        "ca.${HOST}.example.com": {
+            "url": "https://localhost:${CAPORT}",
+            "caName": "ca-${HOST}",
+            "tlsCACerts": {
+                "pem": ["${CAPEM}"]
+            },
+            "httpOptions": {
+                "verify": false
+            }
+        }
+    }
+}
