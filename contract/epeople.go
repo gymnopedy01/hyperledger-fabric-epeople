@@ -147,7 +147,7 @@ func (s *SmartContract) DeleteComplaintRequest (ctx contractapi.TransactionConte
 
 }
 
-//나의 민원 리스트
+//나의 민원 리스트 who.백성
 func (s *SmartContract) ListComplaintRequestByUserId (ctx contractapi.TransactionContextInterface, userId string) ([]ComplaintRequest, error) {
 	return []ComplaintRequest{}, nil
 }
@@ -189,8 +189,9 @@ func (s *SmartContract) ListComplaintRequestAll (ctx contractapi.TransactionCont
 //민원 결과 발행 who.관원
 func (s *SmartContract) AddComplaintResult (ctx contractapi.TransactionContextInterface, requestId string, resultId string, agency string, userId string, manager string, resultDate string, resultContent string) (string, error) {
 //	return resultId, nil
+
 	complaintResult := ComplaintResult{
-		RequestId:		requestId,
+		RequestId:	requestId,
 		ResultId:         	resultId,
 		Agency:     		agency,
 		UserId:           userId,
@@ -199,9 +200,17 @@ func (s *SmartContract) AddComplaintResult (ctx contractapi.TransactionContextIn
 		ResultContent:              resultContent,
 	}
 
-	complaintResultAsBytes, _ := json.Marshal(complaintResult)
+	complaintRequest, err := s.GetComplaintRequest(ctx, requestId);
 
-	return resultId, ctx.GetStub().PutState(resultId, complaintResultAsBytes)
+	if err != nil {
+		return requestId, err
+	}
+
+	complaintRequest.Result = complaintResult
+
+	complaintRequestAsBytes, _ := json.Marshal(complaintRequest)
+	
+	return resultId, ctx.GetStub().PutState(requestId, complaintRequestAsBytes)
 }
 
 //민원 결과 수정 who.관원

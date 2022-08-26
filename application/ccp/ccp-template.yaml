@@ -24,7 +24,7 @@ peers:
       ssl-target-name-override: peer0.${HOST}.example.com
       hostnameOverride: peer0.${HOST}.example.com
 certificateAuthorities:
-  ca.org${ORG}.example.com:
+  ca.${HOST}.example.com:
     url: https://localhost:${CAPORT}
     caName: ca-${HOST}
     tlsCACerts:
