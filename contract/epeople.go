@@ -30,7 +30,7 @@ type ComplaintRequest struct {
 	RequestDate       string `json:"request_date"`       //신청일
 	ReceptionStatus   int    `json:"reception_status"`   //접수상태
 	ReceptionDate     string `json:"reception_date"`     //접수일
-	Result	  ComplaintResult `json:complaint_result`	//민원결과
+	Result	  *ComplaintResult `json:complaint_result`	//민원결과
 }
 
 
@@ -90,7 +90,7 @@ func (s *SmartContract) GetComplaintRequest (ctx contractapi.TransactionContextI
 	}
 
 	complaintRequest := new(ComplaintRequest)
-	_ = json.Unmarshal(complaintRequestAsBytes, &complaintRequest)
+	_ = json.Unmarshal(complaintRequestAsBytes, complaintRequest)
 
 	return complaintRequest, nil
 }
@@ -206,7 +206,7 @@ func (s *SmartContract) AddComplaintResult (ctx contractapi.TransactionContextIn
 		return requestId, err
 	}
 
-	complaintRequest.Result = complaintResult
+	complaintRequest.Result = &complaintResult
 
 	complaintRequestAsBytes, _ := json.Marshal(complaintRequest)
 	

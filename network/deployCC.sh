@@ -196,7 +196,7 @@ sleep 3
 ## TEST2 : Invoking the chaincode
 infoln "TEST2 : Invoking the chaincode"
 set -x
-peer chaincode invoke -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile $ORDERER_CA -C $CHANNEL_NAME -n ${CC_NAME} $PEER_CONN_PARMS -c '{"function":"UpdateComplaintRequestStatus","Args":["REQ:1", 1, "20220825"]}' >&log.txt
+peer chaincode invoke -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile $ORDERER_CA -C $CHANNEL_NAME -n ${CC_NAME} $PEER_CONN_PARMS -c '{"function":"UpdateComplaintRequestStatus","Args":["REQ:1", "1", "20220825"]}' >&log.txt
 { set +x; } 2>/dev/null
 cat log.txt
 

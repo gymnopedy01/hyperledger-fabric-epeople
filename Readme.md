@@ -98,10 +98,11 @@ type ComplaintResult struct {
 ```
 
 
-서버구동
+## Applicaton 서버구동
+
+네트워크 구동후 서버를 구동시킵니다.
 ```sh
-$> ./application/startEPP.sh
-$> ./ccp-generate.sh
-$> node enrollAdmin.js
-$> node registerUser.js
+$> cd application
+$> ./startEPP.sh
+$> node server.js
 ```

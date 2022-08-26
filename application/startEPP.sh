@@ -27,3 +27,9 @@ sleep 5
 ./deployCC.sh
 
 popd
+
+./ccp/ccp-generate.sh
+node ./enrollAdmin.js
+node ./registerUser.js
+
+popd
