@@ -19,7 +19,7 @@ type SmartContract struct {
 /* 민원요청*/
 type ComplaintRequest struct {
 	RequestId         string `json:"request_id"`         //신청번호
-	UserId            string `json:user_id`              //UserId
+	UserId            string `json:"user_id"`              //UserId
 	RequesterName     string `json:"requester_name"`     //신청인이름
 	PhoneNumber       string `json:"phone_number"`       //연락처
 	Address           string `json:"address"`            //주소
@@ -45,6 +45,12 @@ type ComplaintResult struct {
 	ResultContent string `json:"result_content"` //처리결과(답변내용)
 }
 
+type User struct {
+	UserId string `json:"userId"`	//사용자명
+	UserType int `json:"userType"`
+	Password string `json:"password"`
+}
+
 // QueryResult structure used for handling result of query
 type QueryResult struct {
 	Key    string `json:"Key"`
@@ -52,8 +58,15 @@ type QueryResult struct {
 }
 
 // 사용자 추가
-func (s *SmartContract) AddUser (ctx contractapi.TransactionContextInterface, userId string, userType int) (string, error) {
-	return "", nil
+func (s *SmartContract) AddUser (ctx contractapi.TransactionContextInterface, userId string, password string) (string, error) {
+	user := User{
+		UserId: userId,
+		Password: password,
+	}
+
+	userAsBytes, _ := json.Marshal(user)
+
+	return userId, ctx.GetStub().PutState(userId, userAsBytes)
 }
 
 // CreateComplaintRequest adds a new CreateComplaintRequest to the world state with given details

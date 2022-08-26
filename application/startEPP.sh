@@ -31,5 +31,3 @@ popd
 ./ccp/ccp-generate.sh
 node ./enrollAdmin.js
 node ./registerUser.js
-
-popd

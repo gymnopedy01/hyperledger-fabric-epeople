@@ -15,7 +15,7 @@ organizations:
     certificateAuthorities:
     - ca.${HOST}.example.com
 peers:
-  peer0.org${ORG}.example.com:
+  peer0.${HOST}.example.com:
     url: grpcs://localhost:${P0PORT}
     tlsCACerts:
       pem: |
