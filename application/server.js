@@ -22,7 +22,7 @@ app.get('/', (req,res) => {
 })
 
 
-app.post("/signin.json",async (req,res) => {
+app.post("/api/signin.json",async (req,res) => {
 
     const userId = req.body.userId
     const password = req.body.password
@@ -71,7 +71,8 @@ app.post("/signin.json",async (req,res) => {
 
 })
 
-app.get('/complaint-request.json', async (req,res) => {
+//민원등록
+app.get('/api/complaint-request.json', async (req,res) => {
     const requestId = req.query.requestId
     console.log("GET /complaint-request.json", requestId);
 
@@ -129,7 +130,8 @@ app.get('/complaint-request.json', async (req,res) => {
 
 })
 
-app.post('/complaint-request.json', async (req,res) => {
+//민원조회
+app.post('/api/complaint-request.json', async (req,res) => {
 
 //    const requestId = req.body.requestId
     const userId = req.body.userId
@@ -148,7 +150,7 @@ app.post('/complaint-request.json', async (req,res) => {
     var uuid = v4();
     const requestId = "REQ:" + uuid;
 
-    console.log("POST /complaint-request.json", requestId ,userId ,requesterName ,phoneNumber ,address ,open ,title ,content ,complaintLocation ,requestDate , uuid);
+    console.log("POST /api/complaint-request.json", requestId ,userId ,requesterName ,phoneNumber ,address ,open ,title ,content ,complaintLocation ,requestDate , uuid);
 
     try {
         // load the network configuration
@@ -186,13 +188,90 @@ app.post('/complaint-request.json', async (req,res) => {
 
         await gateway.disconnect();
 
+        res.status(200).send({"resultCode":"success"});
+
     } catch (error) {
         console.error(`Failed to submit transaction: ${error}`);
+        res.status(500).send({"resultCode":"error", "result": `Failed to evaluate transaction: ${error}`});
     }
 
 })
 
+//나의 민원 조회
+app.get('/api/my-complaint-requests.json', async (req,res) => {
+    console.log('GET /api/my-comlaint-requests.json')
+    res.status(200).send({"resultCode":"개발중"});
+});
 
+//민원수정
+app.put('/api/complaint-request.json', async (req,res) => {
+
+    const requestId = req.body.requestId;
+    const userId = req.body.userId
+    const requesterName =  req.body.requesterName
+    const phoneNumber = req.body.phoneNumber
+    const address = req.body.address
+    const open = req.body.open
+    const title = req.body.title
+    const content = req.body.content
+    const complaintLocation = req.body.complaintLocation
+    const requestDate = req.body.requestDate 
+
+    console.log("PUT /api/complaint-request.json", requestId ,userId ,requesterName ,phoneNumber ,address ,open ,title ,content ,complaintLocation ,requestDate , uuid);
+
+    res.status(200).send({"resultCode":"개발중"});
+
+})
+
+
+//민원 삭제
+app.delete('/api/complaint-request.json', async (req,res) => {
+    console.log('DELETE /api/my-comlaint-requests.json')
+    res.status(200).send({"resultCode":"개발중"});
+});
+
+//나의 민원 리스트
+app.get('/api/my-complaint-requests.json', async (req,res) => {
+    console.log('GET /api/my-search-comlaint-requests.json')
+    res.status(200).send({"resultCode":"개발중"});
+});
+
+//유사 민원 검색
+app.get('/api/search-complaint-requests.json', async (req,res) => {
+    console.log('GET /api/search-comlaint-requests.json')
+    res.status(200).send({"resultCode":"개발중"});
+});
+
+//민원 결과 
+app.get('/api/complaint-result.json', async (req,res) => {
+    console.log('GET /api/comlaint-result.json')
+    res.status(200).send({"resultCode":"개발중"});
+});
+
+
+//전체민원리스트
+app.get('/api/all-complaint-requests.json', async (req,res) => {
+    console.log('GET /api/all-comlaint-requests.json')
+    res.status(200).send({"resultCode":"개발중"});
+});
+
+//민원접수
+app.patch('/api/complaint-request-status.json', async (req,res) => {
+    console.log('PATCH /api/comlaint-request-status.json')
+    res.status(200).send({"resultCode":"개발중"});
+});
+
+//민원결과등록
+app.post('/api/complaint-result.json', async (req,res) => {
+    console.log('POST /api/comlaint-result.json')
+    res.status(200).send({"resultCode":"개발중"});
+});
+
+//민원결과수정
+app.put('/api/complaint-result.json', async (req,res) => {
+    console.log('POST /api/comlaint-result.json')
+    res.status(200).send({"resultCode":"개발중"});
+});
 
 app.listen(PORT, HOST)
 console.log(`EPeople Server launched successfully http://${HOST}:${PORT}`)
