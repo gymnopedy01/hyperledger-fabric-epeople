@@ -227,8 +227,26 @@ func (s *SmartContract) AddComplaintResult (ctx contractapi.TransactionContextIn
 }
 
 //민원 결과 수정 who.관원
-func (s *SmartContract) UpdateComplaintResult (ctx contractapi.TransactionContextInterface, resultId string, agency string, userId string, manager string, resultDate string, resultContent string) (string, error) {
-	return resultId, nil
+func (s *SmartContract) UpdateComplaintResult (ctx contractapi.TransactionContextInterface, requestId string, agency string, userId string, manager string, resultDate string, resultContent string) (string, error) {
+	complaintRequest, err := s.GetComplaintRequest(ctx, requestId);
+
+	if err != nil {
+		return requestId, err
+	}
+
+	complaintResult := complaintRequest.Result
+
+	complaintResult.Agency = agency;
+	complaintResult.UserId = userId;
+	complaintResult.Manager = manager;
+	complaintResult.ResultDate = resultDate;
+	complaintResult.ResultContent = resultContent;
+	
+
+	complaintRequestAsBytes, _ := json.Marshal(complaintRequest)
+	
+	return requestId, ctx.GetStub().PutState(requestId, complaintRequestAsBytes)
+
 }
 
 //민원 결과 번호
