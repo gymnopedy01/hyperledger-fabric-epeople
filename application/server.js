@@ -71,7 +71,7 @@ app.post("/api/signin.json",async (req,res) => {
 
 })
 
-//민원등록
+//민원조회
 app.get('/api/complaint-request.json', async (req,res) => {
     const requestId = req.query.requestId
     console.log("GET /complaint-request.json", requestId);
@@ -130,7 +130,7 @@ app.get('/api/complaint-request.json', async (req,res) => {
 
 })
 
-//민원조회
+//민원등록
 app.post('/api/complaint-request.json', async (req,res) => {
 
 //    const requestId = req.body.requestId
@@ -188,7 +188,7 @@ app.post('/api/complaint-request.json', async (req,res) => {
 
         await gateway.disconnect();
 
-        res.status(200).send({"resultCode":"success"});
+        res.status(200).send({"resultCode":"success", "data": requestId});
 
     } catch (error) {
         console.error(`Failed to submit transaction: ${error}`);
@@ -204,30 +204,112 @@ app.get('/api/my-complaint-requests.json', async (req,res) => {
 });
 
 //민원수정
-app.put('/api/complaint-request.json', async (req,res) => {
+app.post('/api/update-complaint-request.json', async (req,res) => {
 
     const requestId = req.body.requestId;
-    const userId = req.body.userId
-    const requesterName =  req.body.requesterName
+    const userId = req.body.userId;
     const phoneNumber = req.body.phoneNumber
     const address = req.body.address
     const open = req.body.open
     const title = req.body.title
     const content = req.body.content
     const complaintLocation = req.body.complaintLocation
-    const requestDate = req.body.requestDate 
 
-    console.log("PUT /api/complaint-request.json", requestId ,userId ,requesterName ,phoneNumber ,address ,open ,title ,content ,complaintLocation ,requestDate , uuid);
+    console.log("POST /api/modify-complaint-request.json", requestId ,phoneNumber ,address ,open ,title ,content ,complaintLocation);
 
-    res.status(200).send({"resultCode":"개발중"});
+    try {
+        // load the network configuration
+        const ccpPath = path.resolve(__dirname, "ccp", "connection-org1.json");
+        const ccp = JSON.parse(fs.readFileSync(ccpPath, "utf8"));
 
+        const walletPath = path.join(process.cwd(), "wallet");
+        const wallet = await Wallets.newFileSystemWallet(walletPath);
+        console.log(`Wallet path: ${walletPath}`);
+
+        const identity = await wallet.get("appUser");
+        if (!identity) {
+            console.log('An identity for the user "appUser" does not exist in the wallet');
+            console.log("Run the registerUser.js application before retrying");
+            return;
+        }
+
+        // Create a new gateway for connecting to our peer node.
+        const gateway = new Gateway();
+        await gateway.connect(ccp, {
+            wallet,
+            identity: "appUser",
+            discovery: { enabled: true, asLocalhost: true },
+        });
+
+        // Get the network (channel) our contract is deployed to.
+        const network = await gateway.getNetwork("mychannel");
+        const contract = network.getContract("epeople");
+        await contract.submitTransaction(
+            "UpdateComplaintRequest"
+            , requestId, userId, phoneNumber, address, open, title, content, complaintLocation
+        );
+
+        console.log("Transaction has been submitted");
+
+        await gateway.disconnect();
+
+        res.status(200).send({"resultCode":"success", "data": requestId});
+
+    } catch (error) {
+        console.error(`Failed to submit transaction: ${error}`);
+        res.status(500).send({"resultCode":"error", "result": `Failed to evaluate transaction: ${error}`});
+    }
 })
 
 
 //민원 삭제
 app.delete('/api/complaint-request.json', async (req,res) => {
-    console.log('DELETE /api/my-comlaint-requests.json')
-    res.status(200).send({"resultCode":"개발중"});
+
+    const requestId = req.body.requestId;
+
+    console.log('DELETE /api/comlaint-request.json')
+    //res.status(200).send({"resultCode":"개발중"});
+
+    try {
+        // load the network configuration
+        const ccpPath = path.resolve(__dirname, "ccp", "connection-org1.json");
+        let ccp = JSON.parse(fs.readFileSync(ccpPath, "utf8"));
+
+        const walletPath = path.join(process.cwd(), "wallet");
+        const wallet = await Wallets.newFileSystemWallet(walletPath);
+        console.log(`Wallet path: ${walletPath}`);
+
+        const identity = await wallet.get("appUser");
+        if (!identity) {
+            console.log('An identity for the user "appUser" does not exist in the wallet');
+            console.log("Run the registerUser.js application before retrying");
+            return;
+        }
+
+        // Create a new gateway for connecting to our peer node.
+        const gateway = new Gateway();
+        await gateway.connect(ccp, {
+            wallet,
+            identity: "appUser",
+            discovery: { enabled: true, asLocalhost: true },
+        });
+
+        // Get the network (channel) our contract is deployed to.
+        const network = await gateway.getNetwork("mychannel");
+        const contract = network.getContract("epeople");
+        await contract.submitTransaction("DeleteComplaintRequest", requestId);
+
+        console.log("Transaction has been submitted");
+        
+        await gateway.disconnect();
+
+        res.status(200).send({"resultCode":"success","data": requestId});
+
+    } catch (error) {
+        console.error(`Failed to submit transaction: ${error}`);
+        res.status(500).send({"resultCode":"error", "result": `Failed to evaluate transaction: ${error}`});
+    }
+
 });
 
 //나의 민원 리스트

@@ -152,8 +152,8 @@ func (s *SmartContract) DeleteComplaintRequest (ctx contractapi.TransactionConte
 	if err != nil {
 		return requestId, err
 	}
-	if complaintRequest != nil {
-		return requestId, fmt.Errorf("the asset %s does not exist", requestId)
+	if complaintRequest == nil {
+		return requestId, fmt.Errorf("the ComplaintRequest %s does not exist", requestId)
 	}
 
 	return requestId, ctx.GetStub().DelState(requestId)
