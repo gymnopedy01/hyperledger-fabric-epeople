@@ -58,9 +58,10 @@ type QueryResult struct {
 }
 
 // 사용자 추가
-func (s *SmartContract) AddUser (ctx contractapi.TransactionContextInterface, userId string, password string) (string, error) {
+func (s *SmartContract) AddUser (ctx contractapi.TransactionContextInterface, userId string, userType int, password string) (string, error) {
 	user := User{
 		UserId: userId,
+		UserType: userType,
 		Password: password,
 	}
 

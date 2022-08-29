@@ -25,6 +25,7 @@ app.get('/', (req,res) => {
 app.post("/api/signin.json",async (req,res) => {
 
     const userId = req.body.userId
+    const userType = req.body.userType
     const password = req.body.password
 
     console.log("POST /singin.json", userId, password);
@@ -56,7 +57,7 @@ app.post("/api/signin.json",async (req,res) => {
         // Get the network (channel) our contract is deployed to.
         const network = await gateway.getNetwork("mychannel");
         const contract = network.getContract("epeople");
-        await contract.submitTransaction("AddUser", userId, password);
+        await contract.submitTransaction("AddUser", userId, userType, password);
 
         console.log("Transaction has been submitted");
         

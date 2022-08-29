@@ -11,11 +11,18 @@
   <body>
     <div class="container">
       <br />
-      <h1>회원가입 페이지</h1>
+      <h1>회원가입</h1>
       
       <br />
 
       <form action="/signin" method="post">
+
+        <label class="form-label"> 사용자 유형 </label><br />
+        <select class="form-select" id="userType" required="true">
+          <option value="1">백성</option>
+          <option value="2">관원</option>
+        </select>
+
         <label class="form-label"> 사용자 아이디 </label><br />
         <input type="text" name="userid" class="form-control" id="userId"/>
         <br />
@@ -24,19 +31,45 @@
         <input type="password" name="color" class="form-control" id="password"/>
         <br />
 
+
         <br />
         <button type="button" class="btn btn-primary" id="signin">확인</button>
         
       </form>
     </div>
     <script>
+
+// Example starter JavaScript for disabling form submissions if there are invalid fields
+(function () {
+  'use strict'
+
+  // Fetch all the forms we want to apply custom Bootstrap validation styles to
+  var forms = document.querySelectorAll('.needs-validation')
+
+  // Loop over them and prevent submission
+  Array.prototype.slice.call(forms)
+    .forEach(function (form) {
+      form.addEventListener('submit', function (event) {
+        if (!form.checkValidity()) {
+          event.preventDefault()
+          event.stopPropagation()
+        }
+
+        form.classList.add('was-validated')
+      }, false)
+    })
+})()
+
+
       $("#signin").click(() =>{
+
         const userId = $("#userId").val()
+        const userType = $("#userType").val()
         const password = $("#password").val()
 
         console.log(userId, password);
 
-        $.post('/api/signin.json', {userId, password}, (data,status) =>{
+        $.post('/api/signin.json', {userId, userType, password}, (data,status) =>{
 
           if (data.resultCode == "success") {
             alert(`${userId} 가입이 완료되었습니다.`)
