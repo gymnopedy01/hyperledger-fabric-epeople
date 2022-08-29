@@ -2,6 +2,7 @@
 
 ## 개요 
  민원 처리 시스템 on 블록체인
+- 프로젝트명 : EPEOPLE
 - Network 구조 : https://docs.google.com/presentation/d/1Uw4QljW7FFWONqQ7pinJK1JejxUvLGf-xW37tvZsmL4/edit#slide=id.g14a3fd3ec92_1_0
 
 https://go.dev/play/p/LxJA3WMXdgy
@@ -10,8 +11,8 @@ https://go.dev/play/p/LxJA3WMXdgy
 
 ## 폴더구조
 
-- application
-- contract
+- application : 서버 (NODE.jS Express)
+- contract : 체인코드 (GO)
 - network : 네트워크 구성 (Network 구조 그림 참고) 
   - startnetwork.sh     
   - createchannel.sh
@@ -45,7 +46,7 @@ $> git push
 ```
 
 
-## Chain Code
+## Contract (Chain Code)
 
 ```sh
 $> go mod init epeople
@@ -53,12 +54,11 @@ $> go mod tidy
 $> go build epeople.go
 ```
 
-shim API
+### shim API
+- https://pkg.go.dev/github.com/hyperledger/fabric-chaincode-go@v0.0.0-20220720122508-9207360bbddd/shim#ChaincodeStub.GetQueryResult
 
-https://pkg.go.dev/github.com/hyperledger/fabric-chaincode-go@v0.0.0-20220720122508-9207360bbddd/shim#ChaincodeStub.GetQueryResult
-
-rich query examples
-https://github.com/hyperledger/fabric-samples/blob/main/asset-transfer-ledger-queries/chaincode-go/asset_transfer_ledger_chaincode.go
+### rich query examples
+- https://github.com/hyperledger/fabric-samples/blob/main/asset-transfer-ledger-queries/chaincode-go/asset_transfer_ledger_chaincode.go
 
 ```go
 type ComplaintRequest struct {
