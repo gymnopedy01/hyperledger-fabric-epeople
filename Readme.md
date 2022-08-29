@@ -22,7 +22,7 @@ https://go.dev/play/p/LxJA3WMXdgy
 
 ## GIT 
 
-https://github.com/gymnopedy01/fraudreporting
+https://github.com/gymnopedy01/epeople
 
 ```sh
 $> git init 
@@ -30,7 +30,7 @@ $> git add --all
 $> git commit 
 $> git config --global user.name "th"
 $> git branch -M main
-$> git remote add origin https://github.com/gymnopedy01/fraudreporting.git
+$> git remote add origin https://github.com/gymnopedy01/epeople.git
 $> git push -u origin main
 ```
 
@@ -72,19 +72,6 @@ type ComplaintRequest struct {
 	ComplaintLocation string `json:"complaint_location"` //민원 발생지역
 	ReceptionStatus   int    `json:"reception_status"`   //접수상태
 	RequestDate       string `json:"request_date"`       //신청일
-}
-
-type ComplaintRequest struct {
-	RequestID         string //신청번호
-	RequesterName     string //신청인이름
-	PhoneNumber       string //연락처
-	Address           string //주소
-	Open              bool   //민원 공개
-	Title             string //민원 제목
-	Content           string //민원 내용
-	ComplaintLocation string //민원 발생지역
-	ReceptionStatus   int    //접수상태
-	RequestDate       string //신청일
 }
 
 type ComplaintResult struct {
