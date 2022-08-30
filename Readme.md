@@ -4,7 +4,7 @@
  민원 처리 시스템 on 블록체인
 - 프로젝트명 : EPEOPLE
 - [프레젠테이션](https://docs.google.com/presentation/d/1Uw4QljW7FFWONqQ7pinJK1JejxUvLGf-xW37tvZsmL4/edit)
-- [스마트컨트랙트.sample](https://go.dev/play/p/LxJA3WMXdgy)
+- [스마트컨트랙트.sample](https://go.dev/play/p/LoiCn3Cvqv4)
 
 <hr/>
 
