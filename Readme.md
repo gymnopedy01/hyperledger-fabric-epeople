@@ -1,7 +1,7 @@
-# Complaint handling system On Fabric Blockchain
+# Civil Complaint handling system On Hyperledger Fabric Blockchain
 
 ## 개요 
- 민원 처리 시스템 on 블록체인
+ 민원 처리 시스템 on 하이퍼렛져 패브릭
 - 프로젝트명 : EPEOPLE
 - [프레젠테이션](https://docs.google.com/presentation/d/1Uw4QljW7FFWONqQ7pinJK1JejxUvLGf-xW37tvZsmL4/edit)
 - [스마트컨트랙트.sample](https://go.dev/play/p/LoiCn3Cvqv4)
@@ -89,6 +89,7 @@ type ComplaintResult struct {
 ```sh
 $> git clone https://github.com/gymnopedy01/epeople.git
 $> cd application
+$> npm install
 $> node enrollAdmin.js			--어드민 생성
 $> node registerUser.js			--appUser 생성
 ```
