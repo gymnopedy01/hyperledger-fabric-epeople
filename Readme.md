@@ -88,7 +88,7 @@ type ComplaintResult struct {
 ## Application 설치
 ```sh
 $> git clone https://github.com/gymnopedy01/epeople.git
-$> application
+$> cd application
 $> node enrollAdmin.js			--어드민 생성
 $> node registerUser.js			--appUser 생성
 ```
