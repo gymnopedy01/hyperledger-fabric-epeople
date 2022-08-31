@@ -85,8 +85,15 @@ type ComplaintResult struct {
 }
 ```
 
+## Application 설치
+```sh
+$> git clone https://github.com/gymnopedy01/epeople.git
+$> application
+$> node enrollAdmin.js			--어드민 생성
+$> node registerUser.js			--appUser 생성
+```
 
-## Applicaton 서버구동
+## Applicaton 서버 구동
 
 네트워크 구동후 서버를 구동시킵니다.
 ```sh
@@ -94,3 +101,4 @@ $> cd application
 $> ./startEPP.sh
 $> node server.js
 ```
+
