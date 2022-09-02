@@ -46,7 +46,7 @@
             return false;
           }
           alert(`${requestId} 조회가 완료되었습니다.`)
-          $("#result").append(data);
+          $("#result").append(JSON.stringify(data));
         }).fail((data) =>{
           alert(`조회 실패 : ${JSON.stringify(data)}`);
         })
