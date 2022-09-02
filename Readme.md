@@ -1,7 +1,7 @@
 # Civil Complaint handling system On Hyperledger Fabric Blockchain
 
 ## 개요 
- 민원 처리 시스템 on 하이퍼렛져 패브릭
+ 민원 처리 시스템 on 하이퍼레저 패브릭. 하이퍼레저 기반의 DAPP 입니다.
 - 프로젝트명 : EPEOPLE
 - [프레젠테이션](https://docs.google.com/presentation/d/1Uw4QljW7FFWONqQ7pinJK1JejxUvLGf-xW37tvZsmL4/edit)
 - [스마트컨트랙트.sample](https://go.dev/play/p/LoiCn3Cvqv4)
