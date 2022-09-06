@@ -18,32 +18,37 @@
       <form action="/api/complaint-request.json" method="post">
 
         <label class="form-label"> 신청번호 </label><br />
-        <input type="text" name="requestId" class="form-control" value="REQ:2" id="requestId"/>
+        <input type="text" name="requestId" class="form-control" value="REQ:1" id="requestId"/>
         <br/>
 
-        <button type="button" class="btn btn-primary" id="btn-delete">민원 삭제</button>
+        <button type="button" class="btn btn-primary" id="btn-read">민원 조회</button>
         
       </form>
+   
+      <div id="result"></div>
+
     </div>
+    
 
     <script>
-      $("#btn-delete").click(() =>{
+      $("#btn-read").click(() =>{
         const requestId = $("#requestId").val()
         
         console.log(requestId);
 
         $.ajax({
-            method: "DELETE",
+            method: "GET",
             url: '/api/complaint-request.json',
             data: { requestId }
         }).done((data)=>{
           if(data.resultCode != "success") {
-            alert(`삭제 실패 : ${JSON.stringify(data)}`);
+            alert(`조회 실패 : ${JSON.stringify(data)}`);
             return false;
           }
-          alert(`${requestId} 삭제가 완료되었습니다.`)
+          alert(`${requestId} 조회가 완료되었습니다.`)
+          $("#result").append(JSON.stringify(data));
         }).fail((data) =>{
-          alert(`삭제 실패 : ${JSON.stringify(data)}`);
+          alert(`조회 실패 : ${JSON.stringify(data)}`);
         })
 
       })

@@ -1,19 +1,20 @@
-# Complaint handling system On Fabric Blockchain
+# Civil Complaint handling system On Hyperledger Fabric Blockchain
 
 ## 개요 
- 민원 처리 시스템 on 블록체인
+ 민원 처리 시스템 on 하이퍼레저 패브릭. 하이퍼레저 기반의 DAPP 입니다.
 - 프로젝트명 : EPEOPLE
-- Network 구조 : https://docs.google.com/presentation/d/1Uw4QljW7FFWONqQ7pinJK1JejxUvLGf-xW37tvZsmL4/edit#slide=id.g14a3fd3ec92_1_0
-
-https://go.dev/play/p/LxJA3WMXdgy
+- [프레젠테이션](https://docs.google.com/presentation/d/1Uw4QljW7FFWONqQ7pinJK1JejxUvLGf-xW37tvZsmL4/edit)
+- [스마트컨트랙트.sample](https://go.dev/play/p/LoiCn3Cvqv4)
 
 <hr/>
 
 ## 폴더구조
-
-- application : 서버 (NODE.jS Express)
+- application : 
+  - server.js 서버 (node.js Express)
+  - views : html 파일들
+  - startEPP.sh (fabric 한방 구동)
 - contract : 체인코드 (GO)
-- network : 네트워크 구성 (Network 구조 그림 참고) 
+- network : fabric network 설정 
   - startnetwork.sh     
   - createchannel.sh
   - setAnchorPeerUpdate.sh
@@ -84,8 +85,16 @@ type ComplaintResult struct {
 }
 ```
 
+## Application 설치
+```sh
+$> git clone https://github.com/gymnopedy01/epeople.git
+$> cd application
+$> npm install
+$> node enrollAdmin.js			--어드민 생성
+$> node registerUser.js			--appUser 생성
+```
 
-## Applicaton 서버구동
+## Applicaton 서버 구동
 
 네트워크 구동후 서버를 구동시킵니다.
 ```sh
@@ -93,3 +102,4 @@ $> cd application
 $> ./startEPP.sh
 $> node server.js
 ```
+
