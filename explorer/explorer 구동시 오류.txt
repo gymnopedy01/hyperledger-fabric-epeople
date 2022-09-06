@@ -1,0 +1,148 @@
+bstudent@bstudentvb:~/dev/epeople/explorer$ docker ps -a
+CONTAINER ID   IMAGE                                                                                                                                                                    COMMAND                  CREATED          STATUS                      PORTS                                                                         NAMES
+ba363bf45e82   hyperledger/explorer:latest                                                                                                                                              "docker-entrypoint.s…"   14 minutes ago   Exited (1) 2 minutes ago                                                                                  explorer.mynetwork.com
+94bb416ef96a   hyperledger/explorer-db:latest                                                                                                                                           "docker-entrypoint.s…"   20 minutes ago   Exited (0) 49 seconds ago                                                                                 explorerdb.mynetwork.com
+2276ba67cd44   dev-peer0.org1.example.com-epeople_1-de7f989b1d7a74eb258424e5c83f6d0ea034135afab7e5c41798d83400242d6b-478b874b095047e423e35e2db0e685d8736d1a8d2c63e5642d5075d1af6ba546   "chaincode -peer.add…"   21 minutes ago   Up 21 minutes                                                                                             dev-peer0.org1.example.com-epeople_1-de7f989b1d7a74eb258424e5c83f6d0ea034135afab7e5c41798d83400242d6b
+e3856dba7182   dev-peer0.uni1.example.com-epeople_1-de7f989b1d7a74eb258424e5c83f6d0ea034135afab7e5c41798d83400242d6b-5f62fdae43e694922b15b1bd990374b0f915920174a068ba560dae50deb08fd5   "chaincode -peer.add…"   21 minutes ago   Up 21 minutes                                                                                             dev-peer0.uni1.example.com-epeople_1-de7f989b1d7a74eb258424e5c83f6d0ea034135afab7e5c41798d83400242d6b
+78224caaf609   dev-peer0.org2.example.com-epeople_1-de7f989b1d7a74eb258424e5c83f6d0ea034135afab7e5c41798d83400242d6b-1f6fb167ef12696341a7f20c4963aef3f35390537c059f1bb80988ea1f620c43   "chaincode -peer.add…"   21 minutes ago   Up 21 minutes                                                                                             dev-peer0.org2.example.com-epeople_1-de7f989b1d7a74eb258424e5c83f6d0ea034135afab7e5c41798d83400242d6b
+395831bb343d   dev-peer0.uni2.example.com-epeople_1-de7f989b1d7a74eb258424e5c83f6d0ea034135afab7e5c41798d83400242d6b-ba71e1aec48242e7a728d4a1efcfe96c7a5d75c2f883c12a1d5b9cd904d3e90b   "chaincode -peer.add…"   21 minutes ago   Up 21 minutes                                                                                             dev-peer0.uni2.example.com-epeople_1-de7f989b1d7a74eb258424e5c83f6d0ea034135afab7e5c41798d83400242d6b
+2147f6043b36   hyperledger/fabric-tools:latest                                                                                                                                          "/bin/bash"              21 minutes ago   Up 21 minutes                                                                                             cli
+73fbe10acfa0   hyperledger/fabric-peer:latest                                                                                                                                           "peer node start"        21 minutes ago   Up 21 minutes               7051/tcp, 0.0.0.0:9051->9051/tcp, :::9051->9051/tcp                           peer0.org2.example.com
+587ec028465b   hyperledger/fabric-peer:latest                                                                                                                                           "peer node start"        21 minutes ago   Up 21 minutes               7051/tcp, 0.0.0.0:13051->13051/tcp, :::13051->13051/tcp                       peer0.uni2.example.com
+efdfe7302a2c   hyperledger/fabric-peer:latest                                                                                                                                           "peer node start"        21 minutes ago   Up 21 minutes               7051/tcp, 0.0.0.0:11051->11051/tcp, :::11051->11051/tcp                       peer0.uni1.example.com
+b57a85a352ff   hyperledger/fabric-peer:latest                                                                                                                                           "peer node start"        21 minutes ago   Up 21 minutes               0.0.0.0:7051->7051/tcp, :::7051->7051/tcp                                     peer0.org1.example.com
+32fb3520faea   couchdb:3.1.1                                                                                                                                                            "tini -- /docker-ent…"   21 minutes ago   Up 21 minutes               4369/tcp, 9100/tcp, 0.0.0.0:5984->5984/tcp, :::5984->5984/tcp                 couchdb0
+e79089ea7bce   couchdb:3.1.1                                                                                                                                                            "tini -- /docker-ent…"   21 minutes ago   Up 21 minutes               4369/tcp, 9100/tcp, 0.0.0.0:7984->5984/tcp, :::7984->5984/tcp                 couchdb1
+72eefc3c13dc   couchdb:3.1.1                                                                                                                                                            "tini -- /docker-ent…"   21 minutes ago   Up 21 minutes               4369/tcp, 5984/tcp, 9100/tcp, 0.0.0.0:13984->13984/tcp, :::13984->13984/tcp   couchdb3
+14ad52771401   hyperledger/fabric-orderer:latest                                                                                                                                        "orderer"                21 minutes ago   Up 21 minutes               0.0.0.0:7050->7050/tcp, :::7050->7050/tcp                                     orderer.example.com
+5b3427e20401   couchdb:3.1.1                                                                                                                                                            "tini -- /docker-ent…"   21 minutes ago   Up 21 minutes               4369/tcp, 5984/tcp, 9100/tcp, 0.0.0.0:11984->11984/tcp, :::11984->11984/tcp   couchdb2
+4bec12b74190   hyperledger/fabric-ca:latest                                                                                                                                             "sh -c 'fabric-ca-se…"   21 minutes ago   Up 21 minutes               7054/tcp, 0.0.0.0:11054->11054/tcp, :::11054->11054/tcp                       ca_uni1
+85e552e9f406   hyperledger/fabric-ca:latest                                                                                                                                             "sh -c 'fabric-ca-se…"   21 minutes ago   Up 21 minutes               7054/tcp, 0.0.0.0:8054->8054/tcp, :::8054->8054/tcp                           ca_org2
+6d37ee395366   hyperledger/fabric-ca:latest                                                                                                                                             "sh -c 'fabric-ca-se…"   21 minutes ago   Up 21 minutes               7054/tcp, 0.0.0.0:13054->13054/tcp, :::13054->13054/tcp                       ca_uni2
+afce7af9f706   hyperledger/fabric-ca:latest                                                                                                                                             "sh -c 'fabric-ca-se…"   21 minutes ago   Up 21 minutes               7054/tcp, 0.0.0.0:9054->9054/tcp, :::9054->9054/tcp                           ca_orderer
+0f41e28c9571   hyperledger/fabric-ca:latest                                                                                                                                             "sh -c 'fabric-ca-se…"   21 minutes ago   Up 21 minutes               0.0.0.0:7054->7054/tcp, :::7054->7054/tcp                                     ca_org1
+bstudent@bstudentvb:~/dev/epeople/explorer$ docker rm   ba363bf45e82 94bb416ef96a
+ba363bf45e82
+94bb416ef96a
+bstudent@bstudentvb:~/dev/epeople/explorer$ 
+bstudent@bstudentvb:~/dev/epeople/explorer$ 
+bstudent@bstudentvb:~/dev/epeople/explorer$ docker-compose up
+Creating explorerdb.mynetwork.com ... done
+Creating explorer.mynetwork.com   ... done
+Attaching to explorerdb.mynetwork.com, explorer.mynetwork.com
+explorerdb.mynetwork.com    | 2022-09-06 07:31:51.267 UTC [1] LOG:  listening on IPv4 address "0.0.0.0", port 5432
+explorerdb.mynetwork.com    | 2022-09-06 07:31:51.267 UTC [1] LOG:  listening on IPv6 address "::", port 5432
+explorerdb.mynetwork.com    | 2022-09-06 07:31:51.271 UTC [1] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
+explorerdb.mynetwork.com    | 2022-09-06 07:31:51.291 UTC [19] LOG:  database system was shut down at 2022-09-06 07:29:25 UTC
+explorerdb.mynetwork.com    | 2022-09-06 07:31:51.298 UTC [1] LOG:  database system is ready to accept connections
+explorer.mynetwork.com      | 
+explorer.mynetwork.com      | > hyperledger-explorer@1.1.8 app-start /opt/explorer
+explorer.mynetwork.com      | > ./start.sh
+explorer.mynetwork.com      | 
+explorer.mynetwork.com      | ************************************************************************************
+explorer.mynetwork.com      | **************************** Hyperledger Explorer **********************************
+explorer.mynetwork.com      | ************************************************************************************
+explorer.mynetwork.com      | [2022-09-06T07:32:25.438] [INFO] PgService - SSL to Postgresql disabled
+explorer.mynetwork.com      | [2022-09-06T07:32:25.440] [INFO] PgService - connecting to Postgresql postgres://hppoc:******@explorerdb.mynetwork.com:5432/fabricexplorer
+explorer.mynetwork.com      | [2022-09-06T07:32:25.511] [INFO] Platform -  network_config.id  test-network  network_config.profile  ./connection-profile/test-network.json
+explorer.mynetwork.com      | [2022-09-06T07:32:25.680] [INFO] Platform - Already registered : admin
+explorer.mynetwork.com      | [2022-09-06T07:32:25.683] [INFO] FabricConfig - config.client.tlsEnable  true
+explorer.mynetwork.com      | [2022-09-06T07:32:25.684] [INFO] FabricConfig - FabricConfig, this.config.channels  mychannel
+explorer.mynetwork.com      | 2022-09-06T07:32:29.059Z - error: [ServiceEndpoint]: Error: Failed to connect before the deadline on Endorser- name: peer0.org1.example.com, url:grpcs://peer0.org1.example.com:7051, connected:false, connectAttempted:true
+explorer.mynetwork.com      | 2022-09-06T07:32:29.060Z - error: [ServiceEndpoint]: waitForReady - Failed to connect to remote gRPC server peer0.org1.example.com url:grpcs://peer0.org1.example.com:7051 timeout:3000
+explorer.mynetwork.com      | 2022-09-06T07:32:29.062Z - info: [NetworkConfig]: buildPeer - Unable to connect to the endorser peer0.org1.example.com due to Error: Failed to connect before the deadline on Endorser- name: peer0.org1.example.com, url:grpcs://peer0.org1.example.com:7051, connected:false, connectAttempted:true
+explorer.mynetwork.com      |     at checkState (/opt/explorer/node_modules/@grpc/grpc-js/build/src/client.js:73:26)
+explorer.mynetwork.com      |     at Timeout._onTimeout (/opt/explorer/node_modules/@grpc/grpc-js/build/src/channel.js:382:17)
+explorer.mynetwork.com      |     at listOnTimeout (internal/timers.js:549:17)
+explorer.mynetwork.com      |     at processTimers (internal/timers.js:492:7) {
+explorer.mynetwork.com      |   connectFailed: true
+explorer.mynetwork.com      | }
+explorer.mynetwork.com      | 2022-09-06T07:32:32.100Z - error: [ServiceEndpoint]: Error: Failed to connect before the deadline on Discoverer- name: peer0.org1.example.com, url:grpcs://peer0.org1.example.com:7051, connected:false, connectAttempted:true
+explorer.mynetwork.com      | 2022-09-06T07:32:32.101Z - error: [ServiceEndpoint]: waitForReady - Failed to connect to remote gRPC server peer0.org1.example.com url:grpcs://peer0.org1.example.com:7051 timeout:3000
+explorer.mynetwork.com      | 2022-09-06T07:32:32.101Z - error: [ServiceEndpoint]: ServiceEndpoint grpcs://peer0.org1.example.com:7051 reset connection failed :: Error: Failed to connect before the deadline on Discoverer- name: peer0.org1.example.com, url:grpcs://peer0.org1.example.com:7051, connected:false, connectAttempted:true
+explorer.mynetwork.com      | 2022-09-06T07:32:32.102Z - error: [DiscoveryService]: send[mychannel] - no discovery results
+explorer.mynetwork.com      | [2022-09-06T07:32:32.103] [ERROR] FabricClient - Error: DiscoveryService has failed to return results
+explorer.mynetwork.com      |     at DiscoveryService.send (/opt/explorer/node_modules/fabric-common/lib/DiscoveryService.js:370:10)
+explorer.mynetwork.com      |     at processTicksAndRejections (internal/process/task_queues.js:97:5)
+explorer.mynetwork.com      |     at async NetworkImpl._initializeInternalChannel (/opt/explorer/node_modules/fabric-network/lib/network.js:279:13)
+explorer.mynetwork.com      |     at async NetworkImpl._initialize (/opt/explorer/node_modules/fabric-network/lib/network.js:231:9)
+explorer.mynetwork.com      |     at async Gateway.getNetwork (/opt/explorer/node_modules/fabric-network/lib/gateway.js:330:9)
+explorer.mynetwork.com      | [2022-09-06T07:32:32.103] [INFO] FabricClient - ********* call to initializeDetachClient **********
+explorer.mynetwork.com      | [2022-09-06T07:32:32.104] [INFO] FabricClient - initializeDetachClient, network config)  {
+explorer.mynetwork.com      |   name: 'test-network',
+explorer.mynetwork.com      |   version: '1.0.0',
+explorer.mynetwork.com      |   client: {
+explorer.mynetwork.com      |     tlsEnable: true,
+explorer.mynetwork.com      |     adminCredential: { id: 'admin', password: 'adminpw' },
+explorer.mynetwork.com      |     enableAuthentication: true,
+explorer.mynetwork.com      |     organization: 'Org1MSP',
+explorer.mynetwork.com      |     connection: { timeout: [Object] }
+explorer.mynetwork.com      |   },
+explorer.mynetwork.com      |   channels: { mychannel: { peers: [Object] } },
+explorer.mynetwork.com      |   organizations: {
+explorer.mynetwork.com      |     Org1MSP: {
+explorer.mynetwork.com      |       mspid: 'Org1MSP',
+explorer.mynetwork.com      |       adminPrivateKey: [Object],
+explorer.mynetwork.com      |       peers: [Array],
+explorer.mynetwork.com      |       signedCert: [Object]
+explorer.mynetwork.com      |     }
+explorer.mynetwork.com      |   },
+explorer.mynetwork.com      |   peers: {
+explorer.mynetwork.com      |     'peer0.org1.example.com': {
+explorer.mynetwork.com      |       tlsCACerts: [Object],
+explorer.mynetwork.com      |       url: 'grpcs://peer0.org1.example.com:7051'
+explorer.mynetwork.com      |     }
+explorer.mynetwork.com      |   }
+explorer.mynetwork.com      | }
+explorer.mynetwork.com      | [2022-09-06T07:32:32.105] [INFO] FabricClient - ************************************* initializeDetachClient *************************************************
+explorer.mynetwork.com      | [2022-09-06T07:32:32.106] [INFO] FabricClient - Error : Failed to connect client peer, please check the configuration and peer status
+explorer.mynetwork.com      | [2022-09-06T07:32:32.106] [INFO] FabricClient - Info :  Explorer will continue working with only DB data
+explorer.mynetwork.com      | [2022-09-06T07:32:32.106] [INFO] FabricClient - ************************************** initializeDetachClient ************************************************
+explorer.mynetwork.com      | [2022-09-06T07:32:32.116] [INFO] Platform - initializeListener, network_id, network_client  test-network {
+explorer.mynetwork.com      |   name: 'test-network',
+explorer.mynetwork.com      |   version: '1.0.0',
+explorer.mynetwork.com      |   client: {
+explorer.mynetwork.com      |     tlsEnable: true,
+explorer.mynetwork.com      |     adminCredential: { id: 'admin', password: 'adminpw' },
+explorer.mynetwork.com      |     enableAuthentication: true,
+explorer.mynetwork.com      |     organization: 'Org1MSP',
+explorer.mynetwork.com      |     connection: { timeout: [Object] }
+explorer.mynetwork.com      |   },
+explorer.mynetwork.com      |   channels: { mychannel: { peers: [Object] } },
+explorer.mynetwork.com      |   organizations: {
+explorer.mynetwork.com      |     Org1MSP: {
+explorer.mynetwork.com      |       mspid: 'Org1MSP',
+explorer.mynetwork.com      |       adminPrivateKey: [Object],
+explorer.mynetwork.com      |       peers: [Array],
+explorer.mynetwork.com      |       signedCert: [Object]
+explorer.mynetwork.com      |     }
+explorer.mynetwork.com      |   },
+explorer.mynetwork.com      |   peers: {
+explorer.mynetwork.com      |     'peer0.org1.example.com': {
+explorer.mynetwork.com      |       tlsCACerts: [Object],
+explorer.mynetwork.com      |       url: 'grpcs://peer0.org1.example.com:7051'
+explorer.mynetwork.com      |     }
+explorer.mynetwork.com      |   }
+explorer.mynetwork.com      | }
+explorer.mynetwork.com      | [2022-09-06T07:32:32.122] [INFO] main - Please open web browser to access ：http://localhost:8080/
+explorer.mynetwork.com      | [2022-09-06T07:32:32.122] [INFO] main - pid is 20
+explorer.mynetwork.com      | [2022-09-06T07:32:32.149] [ERROR] main - <<<<<<<<<<<<<<<<<<<<<<<<<< Explorer Error >>>>>>>>>>>>>>>>>>>>>
+explorer.mynetwork.com      | [2022-09-06T07:32:32.151] [ERROR] main - Error :  [
+explorer.mynetwork.com      |   'Default client peer is down and no channel details available database'
+explorer.mynetwork.com      | ]
+explorer.mynetwork.com      | [2022-09-06T07:32:34.154] [INFO] main - Received kill signal, shutting down gracefully
+explorer.mynetwork.com      | [2022-09-06T07:32:34.155] [INFO] Platform - <<<<<<<<<<<<<<<<<<<<<<<<<< Closing explorer  >>>>>>>>>>>>>>>>>>>>>
+explorer.mynetwork.com      | [2022-09-06T07:32:34.156] [INFO] main - Closed out connections
+explorer.mynetwork.com      | npm ERR! code ELIFECYCLE
+explorer.mynetwork.com      | npm ERR! errno 1
+explorer.mynetwork.com      | npm ERR! hyperledger-explorer@1.1.8 app-start: `./start.sh`
+explorer.mynetwork.com      | npm ERR! Exit status 1
+explorer.mynetwork.com      | npm ERR! 
+explorer.mynetwork.com      | npm ERR! Failed at the hyperledger-explorer@1.1.8 app-start script.
+explorer.mynetwork.com      | npm ERR! This is probably not a problem with npm. There is likely additional logging output above.
+explorer.mynetwork.com      | 
+explorer.mynetwork.com      | npm ERR! A complete log of this run can be found in:
+explorer.mynetwork.com      | npm ERR!     /root/.npm/_logs/2022-09-06T07_32_34_193Z-debug.log
+explorer.mynetwork.com exited with code 1
+^CGracefully stopping... (press Ctrl+C again to force)
+Stopping explorerdb.mynetwork.com ... done
