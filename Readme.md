@@ -2,6 +2,7 @@
 
 ## 개요 
  민원 처리 시스템 on 하이퍼레저 패브릭. 하이퍼레저 기반의 DAPP 입니다.
+- 과정명 : "하이퍼레저 기반 블록체인 응용서비스 개발과정" 에서 프로젝트로 진행한 결과물 입니다. (과학기술정보통신부, 정보통신산업진흥원, 한국표준협회)
 - 프로젝트명 : EPEOPLE
 - [프레젠테이션](https://docs.google.com/presentation/d/1Uw4QljW7FFWONqQ7pinJK1JejxUvLGf-xW37tvZsmL4/edit)
 - [스마트컨트랙트.sample](https://go.dev/play/p/LoiCn3Cvqv4)
